@@ -12,6 +12,15 @@ function App() {
   const [myList, setMyList] = useState([]);
   const [showTheList, setShowTheList] = useState(false);
 
+  //   function snackbar(){
+  //   let x = document.getElementById("snackbar");
+
+  //   x.className = "show";
+
+  //   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+  // }
+
+
   function handleSubmit(event) {
     event.preventDefault();
     // console.log(event.target.value);
@@ -19,47 +28,47 @@ function App() {
     console.log(title);
     if (title.length < 5) {
       fetch("http://www.omdbapi.com/?apikey=d9870200&t=" + title) // --> film
-      .then((response) => response.json())
-      .then((data) => {
-        //console.log(data);
-        setMovie([data]);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+        .then((response) => response.json())
+        .then((data) => {
+          //console.log(data);
+          setMovie([data]);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
     } else {
       fetch("http://www.omdbapi.com/?apikey=d9870200&s=" + title) // --> films
-      .then((response) => response.json())
-      .then((data) => {
-        //console.log(data);
-        setMovie(data.Search);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          //console.log(data);
+          setMovie(data.Search);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }
 
-  const handleFavourites = async(e) => {
+  const handleFavourites = async (e) => {
     //add to the Mongo DB collection
     // console.log("We have to do something with this stuff");
     // console.log(details);
     console.log(e.target)
     const actualDetails = await getDetails(e)   // itt várjuk meg a return data -t, olyan mintha az utolsó then lenne
-    
+
     // getDetails(e).then(actualDetails => {
-      // fetch("http://localhost:3002/favourites", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(actualDetails),
-      // })
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     console.log(data);
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
+    // fetch("http://localhost:3002/favourites", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(actualDetails),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
     // })
 
     fetch("http://localhost:3002/favourites", {
@@ -85,7 +94,7 @@ function App() {
 
     console.log('DETAIL URL', url)
 
-   return fetch(url) // --> film details
+    return fetch(url) // --> film details
       .then((res) => {
         if (res.ok) {
           console.log("successful get");
@@ -246,7 +255,7 @@ function App() {
                 type="text"
                 value={title}
                 onChange={(event) => setTitle(event.target.value)}
-                placeholder = "movie title"
+                placeholder="movie title"
               />
             </label>
             <button type="submit">Search!</button>
@@ -267,12 +276,15 @@ function App() {
                 <button
                   type="button"
                   className="favButton"
-                  onClick={handleFavourites}
+                  onClick={() => { handleFavourites() }}
+
                   // onClick={() => {getDetails(); handleFavourites(); }}
                   data-id={film.imdbID}
                 >
+
                   Add to my wish list
                 </button>
+
                 <button
                   type="button"
                   onClick={getDetails}
@@ -298,6 +310,7 @@ function App() {
         </>
       )}
       <Footer />
+      <div className="snackbar">Successfuly added to wish list!</div>
     </div>
   );
 }
