@@ -1,0 +1,112 @@
+body {
+  background-color: #85adad;
+  margin: 10px;
+}
+
+header {
+  margin-top: 15px;
+  margin-bottom: 35px;
+}
+
+/* FOOTER */
+.footer {
+  font-weight: bold;
+  font-size: 16px;
+  font-family: 'Lora', sans-serif;
+  display: flex;
+  justify-content: center;
+  color: #1f2e2e;
+  margin-bottom: 30px;
+  padding: 5px;
+  /* width: 80%; */
+  /* position: fixed; */
+  /* left: 0; */
+  /* bottom: 0; */
+  /* text-align: center;  */
+  /* background-color: rgba(252, 252, 252, 0.608); */
+}
+
+.App {
+  text-align: center;
+  margin: 20px;
+  
+}
+
+label {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+input {
+  margin: 5px;
+  font-size: 18px;
+  border-radius: 10px;
+}
+
+img {
+  margin: 10px 0px;
+  border: 5px solid black;
+  border-radius: 80px
+}
+
+.movie {
+  margin-top: 10px;
+}
+
+.favButton {
+    margin-bottom: 30px;
+    display: inline
+}
+
+button {
+  /* height: 30px; */
+  background-color: #1f2e2e;
+  color: yellowgreen;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  margin: 10px;
+  display: inline;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+button:hover{
+  box-shadow: -5px 5px 20px rgba(0,0,0,0.3);
+  color: #1f2e2e;
+  background-color: yellowgreen;
+
+}
+
+.backToTop {
+  position: fixed;
+  bottom: 20px;
+  right: 10px;
+  font-size: 80px;
+  background:#1f2e2e;
+  color: yellowgreen;
+  cursor: pointer;
+  border-radius: 100px;
+  border: none;
+  transition: all 0.5s ease
+}
+
+.backToTop:hover {
+  background: yellowgreen;
+  color:#1f2e2e;
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.10em);
+  
+}
+
+h2 {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+header {
+  font-size: 26px;
+  font-weight: bold;
+}
+
