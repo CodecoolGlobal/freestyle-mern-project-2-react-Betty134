@@ -40,14 +40,32 @@ function App() {
     }
   }
 
-  const handleFavourites = () => {
+  const handleFavourites = async(e) => {
     //add to the Mongo DB collection
     // console.log("We have to do something with this stuff");
     // console.log(details);
+    console.log(e.target)
+    const actualDetails = await getDetails(e)   // itt várjuk meg a return data -t, olyan mintha az utolsó then lenne
+    
+    // getDetails(e).then(actualDetails => {
+      // fetch("http://localhost:3002/favourites", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(actualDetails),
+      // })
+      //   .then((response) => response.json())
+      //   .then((data) => {
+      //     console.log(data);
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
+    // })
+
     fetch("http://localhost:3002/favourites", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(details),
+      body: JSON.stringify(actualDetails),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -56,24 +74,31 @@ function App() {
       .catch((error) => {
         console.log(error);
       });
+
   };
 
   const getDetails = (e) => {
+    console.log('DETAILS', e.target)
+    console.log(e.target.dataset.id)
+
     let url = `https://www.omdbapi.com/?apikey=d9870200&i=${e.target.dataset.id}`;
 
-    fetch(url) // --> film details
+    console.log('DETAIL URL', url)
+
+   return fetch(url) // --> film details
       .then((res) => {
         if (res.ok) {
           console.log("successful get");
         } else {
           console.log("failed");
         }
-        return res;
+        return res;   // ugyan azt viszi tovább
       })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
         setDetails(data);
+        return data   // ez a data lesz a következő then bemenete
       })
       .catch((error) => {
         console.log(error);
@@ -243,6 +268,8 @@ function App() {
                   type="button"
                   className="favButton"
                   onClick={handleFavourites}
+                  // onClick={() => {getDetails(); handleFavourites(); }}
+                  data-id={film.imdbID}
                 >
                   Add to my wish list
                 </button>
