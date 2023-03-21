@@ -24,7 +24,7 @@ function App() {
   function handleSubmit(event) {
     event.preventDefault();
     // console.log(event.target.value);
-    // console.log(event.target);
+    console.log(event.target);
     console.log(title);
     if (title.length < 5) {
       fetch("http://www.omdbapi.com/?apikey=d9870200&t=" + title) // --> film
@@ -276,8 +276,7 @@ function App() {
                 <button
                   type="button"
                   className="favButton"
-                  onClick={() => { handleFavourites() }}
-
+                  onClick={handleFavourites}
                   // onClick={() => {getDetails(); handleFavourites(); }}
                   data-id={film.imdbID}
                 >
