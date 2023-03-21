@@ -4,6 +4,7 @@ import Film from "./Film.js";
 import MyList from "./MyList";
 import Details from "./Details";
 import Footer from "./Footer";
+import Header from "./Header";
 
 function App() {
   const [title, setTitle] = useState("");
@@ -11,6 +12,7 @@ function App() {
   const [details, setDetails] = useState({});
   const [myList, setMyList] = useState([]);
   const [showTheList, setShowTheList] = useState(false);
+  const [visible, setVisible] = useState();
 
   //   function snackbar(){
   //   let x = document.getElementById("snackbar");
@@ -87,6 +89,7 @@ function App() {
   };
 
   const getDetails = (e) => {
+    setVisible(true)
     console.log('DETAILS', e.target)
     console.log(e.target.dataset.id)
 
@@ -179,33 +182,9 @@ function App() {
       .catch((err) => console.log(err));
   };
 
-  const [scrollTop, setScrollTop] = useState(false);
-  // görgetésre aktiválódjon
-  useEffect(() => {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 200) {
-        setScrollTop(true);
-      } else {
-        setScrollTop(false);
-      }
-    });
-  }, []);
-
-  const bottomToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
   return (
     <div className="App">
-      <header>Freestyle MERN TWT's Rainy Day Program Planner</header>
-      {scrollTop && (
-        <button onClick={bottomToTop} className="backToTop">
-          ↑
-        </button>
-      )}
+      <Header />
       {showTheList ? (
         <>
           <button type="button" onClick={handleBackButton}>
@@ -301,6 +280,8 @@ function App() {
                     type={details.Type}
                     rating={details.imdbRating}
                     runtime={details.Runtime}
+                    visible={visible}
+                    setVisible={setVisible}
                   />
                 ) : null}
                 <hr></hr>
@@ -309,7 +290,8 @@ function App() {
         </>
       )}
       <Footer />
-      <div className="snackbar">Successfuly added to wish list!</div>
+      {/* <div className="snackbar">Successfuly added to wish list!</div> */}
+     
     </div>
   );
 }
