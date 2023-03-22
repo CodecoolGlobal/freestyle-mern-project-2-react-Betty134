@@ -1,6 +1,11 @@
 body {
   background-color: #85adad;
   margin: 10px;
+  background-image: url(../public/film.png),
+                    url(../public/popcorn.png);
+  background-size: 200px;
+  background-repeat: space repeat;
+  background-position-x: left;
 }
 
 header {
@@ -29,7 +34,7 @@ header {
 .App {
   text-align: center;
   margin: 20px;
-  
+
 }
 
 label {
@@ -125,3 +130,29 @@ header {
   bottom: 30px;
   font-size: 17px;
 }
+
+
+/* .container {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+} */
+
+
+.details {
+  /* background-color: #fff; */
+  display: inline-block;
+  max-width: 70%;
+  margin: 0px 20px;
+
+}
+/*.movie {
+  display: block;
+} */
+
+/* .detailsButton {
+  display: block;
+} */
+

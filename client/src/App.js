@@ -1,11 +1,12 @@
 import "./App.css";
 import React, { useState, useEffect, useRef } from "react";
-import Film from "./Film.js";
-import MyList from "./MyList";
-import Details from "./Details";
-import Footer from "./Footer";
-import Header from "./Header";
+import Film from "./components/Film.js";
+import MyList from "./components/MyList";
+import Details from "./components/Details";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 import Snackbar from "./components/Snackbar";
+
 
 function App() {
   const [title, setTitle] = useState("");
@@ -15,13 +16,7 @@ function App() {
   const [showTheList, setShowTheList] = useState(false);
   const [visible, setVisible] = useState();
 
-  //   function snackbar(){
-  //   let x = document.getElementById("snackbar");
-
-  //   x.className = "show";
-
-  //   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-  // }
+  const snackbarRef = useRef(null);
 
 
   function handleSubmit(event) {
@@ -91,8 +86,11 @@ function App() {
 
   };
 
+const handleVisibility = () => {
+  setVisible(true)
+}
+
   const getDetails = (e) => {
-    setVisible(true)
     console.log('DETAILS', e.target)
     console.log(e.target.dataset.id)
 
@@ -190,7 +188,12 @@ function App() {
   //   fail: 'fail',
   // };
 
-  const snackbarRef = useRef(null);
+  const wrapperFunction = (e) => {
+    handleVisibility()
+    getDetails(e);
+  }
+
+  
 
   return (
     <div className="App">
@@ -253,33 +256,45 @@ function App() {
             </button>
           </form>
           <hr></hr>
+
+
+          {/* <div className="sidepic">
+            <img src={} className="sidepictures" alt="SidePictures"/>
+
+          </div> */}
+
+
           {movie &&
             movie.map((film, index) => (
-              <div key={index}>
-                <Film
-                  title={film.Title}
-                  year={film.Year}
-                  poster={film.Poster}
-                  type={film.Type}
-                />
-                <button
-                  type="button"
-                  className="favButton"
-                  onClick={handleFavourites}
-                  // onClick={() => {getDetails(); handleFavourites(); }}
-                  data-id={film.imdbID}
-                >
+              <div key={index} className='container'>
+                <div className="movieandbut">
+                  <Film
+                    title={film.Title}
+                    year={film.Year}
+                    poster={film.Poster}
+                    type={film.Type}
+                  />
+                  <button
+                    type="button"
+                    className="favButton"
+                    onClick={handleFavourites}
+                    // onClick={() => {getDetails(); handleFavourites(); }}
+                    data-id={film.imdbID}
+                  >
 
-                  Add to my wish list
-                </button>
+                    Add to my wish list
+                  </button>
 
-                <button
-                  type="button"
-                  onClick={getDetails}
-                  data-id={film.imdbID}
-                >
-                  Details
-                </button>
+                  <button id="detailsButton"
+                    type="button"
+                    onClick={wrapperFunction}
+                    data-id={film.imdbID}
+                  >
+                    Details
+                  </button>
+
+                </div>
+                
                 {details.imdbID === film.imdbID ? (
                   <Details
                     actors={details.Actors}
@@ -295,21 +310,20 @@ function App() {
                   />
                 ) : null}
                 <hr></hr>
+  
               </div>
             ))}
         </>
       )}
-      <button className="showSnack" onClick={() => {snackbarRef.current.show()}}> Show SnackBar</button>
+      {/* <button className="showSnack" onClick={() => {snackbarRef.current.show()}}> Show SnackBar</button> */}
       <Snackbar 
         ref={snackbarRef}
-        message='Successfully added to your wishlist' 
+        message='Successfuly added to your wishlist' 
         // type={SnackbarType.success} 
         type="success" 
       />
 
       <Footer />
-      {/* <div className="snackbar">Successfuly added to wish list!</div> */}
-     
     </div>
   );
 }
