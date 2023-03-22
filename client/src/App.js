@@ -1,10 +1,11 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Film from "./Film.js";
 import MyList from "./MyList";
 import Details from "./Details";
 import Footer from "./Footer";
 import Header from "./Header";
+import Snackbar from "./components/Snackbar";
 
 function App() {
   const [title, setTitle] = useState("");
@@ -55,6 +56,8 @@ function App() {
     //add to the Mongo DB collection
     // console.log("We have to do something with this stuff");
     // console.log(details);
+    snackbarRef.current.show()
+
     console.log(e.target)
     const actualDetails = await getDetails(e)   // itt várjuk meg a return data -t, olyan mintha az utolsó then lenne
 
@@ -182,6 +185,13 @@ function App() {
       .catch((err) => console.log(err));
   };
 
+  // const SnackbarType = {
+  //   success: 'success',
+  //   fail: 'fail',
+  // };
+
+  const snackbarRef = useRef(null);
+
   return (
     <div className="App">
       <Header />
@@ -289,6 +299,14 @@ function App() {
             ))}
         </>
       )}
+      <button className="showSnack" onClick={() => {snackbarRef.current.show()}}> Show SnackBar</button>
+      <Snackbar 
+        ref={snackbarRef}
+        message='Successfully added to your wishlist' 
+        // type={SnackbarType.success} 
+        type="success" 
+      />
+
       <Footer />
       {/* <div className="snackbar">Successfuly added to wish list!</div> */}
      
